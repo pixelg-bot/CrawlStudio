@@ -1,0 +1,49 @@
+name: Test crawler and deployment image
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/data/browsers
+      CRAWLSTUDIO_TEST_DATABASE_URL: postgresql://postgres:ci-test-password@127.0.0.1:5432/crawlstudio_test
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: ci-test-password
+          POSTGRES_DB: crawlstudio_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+      - run: node --test test/postgres.integration.mjs
+      - run: npm run test:browser
+      - run: docker build -t crawlstudio-ci .
+      - name: Verify Linux container and PDF runtime
+        run: |
+          docker run -d --name crawlstudio-ci -e PUBLIC_URL=http://127.0.0.1:4310 -e CRAWLSTUDIO_PASSWORD=ci-only-test-password-12345 -e CRAWLSTUDIO_BLOCK_PRIVATE=true crawlstudio-ci
+          docker exec -i crawlstudio-ci node --input-type=module < test/container-smoke.mjs
+      - name: Container logs
+        if: failure()
+        run: docker logs crawlstudio-ci || true
+      - name: Cleanup owned test container
+        if: always()
+        run: docker rm -f crawlstudio-ci || true
