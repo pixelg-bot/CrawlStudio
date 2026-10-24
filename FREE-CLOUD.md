@@ -49,7 +49,7 @@ Local crawls do not transfer automatically. Export JSON locally, then import it 
 
 ## Verification
 
-Core/API tests, browser rendering and PDF generation were tested locally. PDF pages were rendered and visually checked. Storage tests cover files and the PostgreSQL adapter contract. A real Neon connection and the Render Docker build still need verification in your accounts. Docker Engine was unavailable here.
+Core/API tests and PDF layout were verified locally. GitHub Actions additionally passed the Linux browser workflow, real PostgreSQL persistence, the Docker build, and branded PDF generation inside the container. The actual Neon connection and Render service still need verification in your accounts.
 
 References checked 2026-10-24:
 
@@ -57,3 +57,4 @@ References checked 2026-10-24:
 - https://render.com/docs/blueprint-spec
 - https://render.com/docs/environment-variables
 - https://neon.com/docs/introduction/plans
+

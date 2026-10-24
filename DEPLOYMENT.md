@@ -83,4 +83,5 @@ The app is intended for a trusted team. These controls are not a production secu
 
 The automated core, evidence-audit and team-hosting suites pass, including authentication, branded assets, the guide, private-address blocking and DNS validation. The browser suite checks rendering, extraction, accessibility, form login and the UI.
 
-Docker Engine is unavailable in the development environment. The Docker image and Compose stack have not been built here. Public hosting, DNS and HTTPS issuance still need verification on your server. No public URL has been deployed by preparing this package.
+Docker Engine was unavailable locally, but GitHub Actions successfully built the Linux image and verified Chromium/PDF generation and server access controls inside it. The Compose stack, DNS and public HTTPS issuance still need verification on your chosen server. FREE-CLOUD.md covers the alternative free Render deployment.
+
