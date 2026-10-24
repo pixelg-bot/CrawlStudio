@@ -1,0 +1,36 @@
+services:
+  crawlstudio:
+    build: .
+    init: true
+    restart: unless-stopped
+    shm_size: '1gb'
+    environment:
+      HOST: 0.0.0.0
+      PORT: '4310'
+      PUBLIC_URL: https://${CRAWLSTUDIO_DOMAIN:?Set CRAWLSTUDIO_DOMAIN in .env}
+      CRAWLSTUDIO_USERNAME: ${CRAWLSTUDIO_USERNAME:-team}
+      CRAWLSTUDIO_PASSWORD: ${CRAWLSTUDIO_PASSWORD:?Set a strong CRAWLSTUDIO_PASSWORD in .env}
+      CRAWLSTUDIO_BLOCK_PRIVATE: 'true'
+    volumes:
+      - crawl_data:/app/data
+    expose:
+      - '4310'
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    environment:
+      CRAWLSTUDIO_DOMAIN: ${CRAWLSTUDIO_DOMAIN:?Set CRAWLSTUDIO_DOMAIN in .env}
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      crawlstudio:
+        condition: service_healthy
+volumes:
+  crawl_data:
+  caddy_data:
+  caddy_config:

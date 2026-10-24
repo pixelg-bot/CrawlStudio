@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: crawlstudio-pixel-growers
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /healthz
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: CRAWLSTUDIO_USERNAME
+        value: team
+      - key: CRAWLSTUDIO_PASSWORD
+        generateValue: true
+      - key: CRAWLSTUDIO_BLOCK_PRIVATE
+        value: 'true'
+      - key: CRAWLSTUDIO_REQUIRE_DATABASE
+        value: 'true'
+      - key: DATABASE_URL
+        sync: false
+      - key: CRAWLSTUDIO_NAMESPACE
+        value: crawlstudio
+      - key: CRAWLSTUDIO_MAX_PAGES
+        value: '100'
+      - key: CRAWLSTUDIO_PDF_MAX_FINDINGS
+        value: '100'
+      - key: CRAWLSTUDIO_SCHEDULES
+        value: 'false'

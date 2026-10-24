@@ -1,0 +1,8 @@
+{$CRAWLSTUDIO_DOMAIN} {
+    encode gzip zstd
+    reverse_proxy crawlstudio:4310 {
+        transport http {
+            response_header_timeout 120s
+        }
+    }
+}

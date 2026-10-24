@@ -1,0 +1,9 @@
+data/
+node_modules/
+.env
+
+work/
+*.zip
+*preview*.png
+.env.*
+!.env.example
