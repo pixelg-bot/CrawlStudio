@@ -1,3 +1,7 @@
+# CrawlStudio by Pixel Growers — agency workspace
+
+Current release: **0.7**. Public audits use the crawl engine, PageSpeed Insights and Crawly. Connected Clients keeps Google property bindings, onboarding baselines and progress reports separate for each website. See [release guide](docs/RELEASE-0.7.md) and [Google connection setup](docs/GOOGLE-CONNECTION.md).
+
 # CrawlStudio by Pixel Growers
 
 A technical SEO crawler branded for Pixel Growers. For team hosting, start with [DEPLOYMENT.md](DEPLOYMENT.md). The browser user guide is at /guide. This is an initial implementation, not a complete commercial crawler or a staffed support service. Version 0.4 adds an evidence-first SEO audit based on the supplied skill; see [skill integration](docs/skill-integration.md). See the **Feature coverage** screen for the exact scope of every requested feature.

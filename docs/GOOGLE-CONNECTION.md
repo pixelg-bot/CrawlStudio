@@ -28,3 +28,9 @@ After Google sign-in, choose Find my GA4 properties and select the website prope
 
 ## Unsure whether you have access?
 Sign in to search.google.com/search-console and analytics.google.com with your normal Google account. A property listed there indicates access to that property. If the website is missing, ask the website owner to grant read access, or set up and verify the property. A new Analytics tag starts collecting future data; it cannot reconstruct past visits. Never share your Google password with CrawlStudio.
+
+
+## Multiple clients (v0.7)
+Add Google account connections without replacing existing ones. Select an account, find its properties, enter the client name and website, then Save connected client website. Connected Clients opens each website’s dedicated report. Press Refresh this client’s Google reports to load current data. New website audit returns to the public crawler.
+
+Google credentials are encrypted per account. Client records bind to their selected account and properties. Adding a new Google account alone does not move existing clients. To change an existing site’s property/account assignment, select its website and save the updated binding; its Google baseline restarts so unrelated source data is not mixed.
