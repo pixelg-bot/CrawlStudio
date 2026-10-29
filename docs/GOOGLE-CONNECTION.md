@@ -3,7 +3,7 @@
 CrawlStudio v0.5 separates technical crawl observations from search performance. Entering a domain does not grant access to its Google data.
 
 ## One-time administrator setup
-1. Create or select a Google Cloud project. Enable Search Console API and Google Analytics Data API.
+1. Create or select a Google Cloud project. Enable Search Console API, Google Analytics Admin API and Google Analytics Data API.
 2. Configure the OAuth consent screen for your organization or test users as appropriate. Google verification and testing-mode limits may apply.
 3. Create a Web application OAuth client. Register the exact redirect URI: https://crawlstudio-pixel-growers.onrender.com/api/google/callback
 4. Add GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET to Render Environment and redeploy. Keep secrets out of GitHub and chat. Optionally set a stable CRAWLSTUDIO_TOKEN_KEY; otherwise the team password encrypts tokens. Changing that key/password requires reconnecting Google.
@@ -21,3 +21,10 @@ Search Console does not return keyword search volume, keyword difficulty, CPC, i
 The Print a PDF button downloads the technical evidence audit; CSV and JSON exports are available under Technical crawl.
 
 References: https://developers.google.com/identity/protocols/oauth2/web-server and https://developers.google.com/webmaster-tools/v1/searchanalytics/query
+
+
+## GA4 and the overview
+After Google sign-in, choose Find my GA4 properties and select the website property. CrawlStudio validates its web stream before loading sessions, channel trends, countries and recognized AI referral traffic. Use the global reporting-period selector and Refresh connected data. Select Search Console separately for search queries, clicks and country keyword counts. GA4 cannot supply these keyword counts. See RELEASE-0.6.md for metric definitions and limitations.
+
+## Unsure whether you have access?
+Sign in to search.google.com/search-console and analytics.google.com with your normal Google account. A property listed there indicates access to that property. If the website is missing, ask the website owner to grant read access, or set up and verify the property. A new Analytics tag starts collecting future data; it cannot reconstruct past visits. Never share your Google password with CrawlStudio.

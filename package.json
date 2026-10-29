@@ -1,11 +1,11 @@
 {
   "name": "crawlstudio",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "type": "module",
   "scripts": {
     "start": "node server.mjs",
-    "test": "node --test --test-concurrency=1 test/core.test.mjs test/skill.test.mjs test/hosting.test.mjs test/storage.test.mjs test/discovery.test.mjs test/google-auth.test.mjs",
+    "test": "node --test --test-concurrency=1 test/core.test.mjs test/skill.test.mjs test/hosting.test.mjs test/storage.test.mjs test/discovery.test.mjs test/google-auth.test.mjs test/reporting.test.mjs",
     "install-browser": "node install-browser.mjs",
     "test:browser": "node --test test/browser.test.mjs",
     "share": "node share.mjs"

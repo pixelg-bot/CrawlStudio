@@ -3,7 +3,7 @@ ENV NODE_ENV=production PLAYWRIGHT_BROWSERS_PATH=/opt/browsers HOST=0.0.0.0 PORT
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev && npx playwright install --with-deps chromium && chmod -R a+rX /opt/browsers
-COPY google-auth.mjs discovery.mjs search-data.mjs server.mjs html.mjs seo-audit.mjs hosting.mjs network.mjs pdf-report.mjs storage.mjs ./
+COPY analytics-data.mjs reporting.mjs google-auth.mjs discovery.mjs search-data.mjs server.mjs html.mjs seo-audit.mjs hosting.mjs network.mjs pdf-report.mjs storage.mjs ./
 COPY public ./public
 RUN mkdir -p /app/data && chown -R node:node /app/data
 USER node
