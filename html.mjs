@@ -31,11 +31,11 @@ export function robotsRules(source,agent='CrawlStudio'){
 }
 export function finalize(pages,threshold=.9){
  const hashes=new Map(),titles=new Map(),byURL=new Map(pages.map(p=>[p.url,p]));
- for(const p of pages){if(p.hash&&p.status===200){if(hashes.has(p.hash)){p.duplicateOf=hashes.get(p.hash);p.issues.push({type:'duplicate',message:'Exact HTML duplicate of '+p.duplicateOf,severity:'warning'})}else hashes.set(p.hash,p.url)}if(p.title){if(titles.has(p.title))p.issues.push({type:'title',message:'Duplicate page title',severity:'warning'});else titles.set(p.title,p.url)}
+ for(const p of pages){if(p.accessChallenge)continue;if(p.hash&&p.status===200){if(hashes.has(p.hash)){p.duplicateOf=hashes.get(p.hash);p.issues.push({type:'duplicate',message:'Exact HTML duplicate of '+p.duplicateOf,severity:'warning'})}else hashes.set(p.hash,p.url)}if(p.title){if(titles.has(p.title))p.issues.push({type:'title',message:'Duplicate page title',severity:'warning'});else titles.set(p.title,p.url)}
  for(const h of p.hreflang||[]){const target=byURL.get(h.url);if(target&&!(target.hreflang||[]).some(x=>x.url===p.url))p.issues.push({type:'hreflang',message:'Missing return link from '+h.url,severity:'warning'})}}
  const shingles=t=>{const words=(t||'').toLowerCase().split(/\s+/).slice(0,3000);return new Set(words.slice(0,-2).map((_,i)=>words.slice(i,i+3).join(' ')))};
  const sets=pages.map(p=>shingles(p.text));for(let i=0;i<pages.length;i++){if(sets[i].size<20||pages[i].duplicateOf)continue;for(let j=0;j<i;j++){if(sets[j].size<20)continue;let intersection=0;for(const s of sets[i])if(sets[j].has(s))intersection++;const score=intersection/(sets[i].size+sets[j].size-intersection);if(score>=threshold){pages[i].nearDuplicate={url:pages[j].url,similarity:Math.round(score*100)};pages[i].issues.push({type:'near-duplicate',message:`${Math.round(score*100)}% text similarity to ${pages[j].url}`,severity:'warning'});break}}}
  const rank=new Map(pages.map(p=>[p.url,1/Math.max(1,pages.length)]));for(let n=0;n<20;n++){const next=new Map(pages.map(p=>[p.url,.15/Math.max(1,pages.length)]));for(const p of pages){const out=(p.links||[]).filter(u=>next.has(u));if(out.length)for(const u of out)next.set(u,next.get(u)+.85*rank.get(p.url)/out.length);else for(const u of next.keys())next.set(u,next.get(u)+.85*rank.get(p.url)/pages.length)}for(const [u,v]of next)rank.set(u,v)}
- for(const p of pages){p.internalRank=+(rank.get(p.url)*100).toFixed(3);p.inlinks=pages.filter(q=>(q.links||[]).includes(p.url)).map(q=>q.url)}return pages;
+ for(const p of pages){if(p.accessChallenge){p.internalRank=null;p.inlinks=[];continue}p.internalRank=+(rank.get(p.url)*100).toFixed(3);p.inlinks=pages.filter(q=>(q.links||[]).includes(p.url)).map(q=>q.url)}return pages;
 }
 
