@@ -1,6 +1,6 @@
 # Public crawler and administrator access
 
-The hosted service opens public audits without a login. Each visitor receives a signed, HttpOnly browser cookie; crawl records are checked against that visitor on every report, download and stop endpoint. Visitors see only their own browser audit history. Clearing cookies or switching browsers loses access to that visitor history. Administrators retain all saved audits.
+The hosted service opens public audits without a login. Each visitor receives a signed, HttpOnly browser cookie; crawl records are checked against that visitor on every report, download and stop endpoint. Saved Audits is administrator-only. Public users can view only the current session audit; returning to the homepage rotates the visitor session. Administrators retain all saved audits and can remove them to a recoverable Removed audits list. New records include UTC submission time and approximate country where available.
 
 Open `/admin` and use the existing team credentials for saved reports, connected clients, Google connections and configuration. Administrator sessions last eight hours. Passwords and API keys are not exposed to visitors. Existing private audits are not made public.
 

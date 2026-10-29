@@ -1,6 +1,6 @@
 {
   "name": "crawlstudio",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "private": true,
   "type": "module",
   "scripts": {
@@ -16,7 +16,11 @@
   "dependencies": {
     "amphtml-validator": "^1.0.38",
     "axe-core": "^4.14.0",
+    "geoip-country": "5.0.202610280233",
     "pg": "^8.23.1",
     "playwright": "^1.64.1"
+  },
+  "overrides": {
+    "ip-address": "10.7.5"
   }
 }

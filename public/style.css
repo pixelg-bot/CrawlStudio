@@ -32,3 +32,5 @@ body,input,select,textarea,button{font-family:Graphik,Arial,Helvetica,sans-serif
 .admin-entry{display:block;margin-bottom:18px}.public-visitor [data-view="clients"],.public-visitor [data-view="integrations"],.public-visitor [data-goto="integrations"],.public-visitor #configForm,.public-visitor #crawlConfig,.public-visitor #configButton{display:none!important}
 
 .welcome-admin{position:absolute;right:28px;top:24px;color:#6e6477;font-size:12px}.public-visitor #configure{display:none!important}
+
+.admin-badge{display:none;background:#f2e2ff;color:#8e10cd;padding:8px 13px;border-radius:20px;font-size:12px;font-weight:700;white-space:nowrap}.admin-mode .admin-badge{display:inline-block}.admin-mode .admin-entry,.admin-mode .welcome-admin{display:none!important}.welcome-admin-badge{position:absolute;right:28px;top:24px}.public-visitor [data-view="saved"],.public-visitor #view-saved{display:none!important}
